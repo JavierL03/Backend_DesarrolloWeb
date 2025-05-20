@@ -20,6 +20,20 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use((req, res, next) => {
+  if(req.headers.authorization && req.headers.authorization.startsWith('123')) {
+    next();
+  }
+  else {
+    res.status(401).json({
+      message: 'Unauthorized'
+    });
+  }
+});
+
+
+
+
 
 application.use((req, res, next) => {
     

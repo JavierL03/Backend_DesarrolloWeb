@@ -12,7 +12,13 @@ let tasks = [
     {
         id: 2,
         title: 'Task 2',
-        description: 'Description for task 2',
+        description: 'Editar archivos ',
+        completed: true
+    }
+    {
+        id: 3,
+        title: 'Task 3',
+        description: 'Borrar logs ',
         completed: true
     }
 ];
@@ -22,6 +28,19 @@ router.get ('/getTasks', function(req, res, next) {
     res.json(tasks);
 
 });
+
+
+router.delete('/deleteTask/:id', function(req, res, next) {
+    const taskId = parseInt(req.params.id);
+    const task = tasks.find(task => task.id === taskId);
+    if (!task) {
+        return res.status(400).json({ message: 'Task not found' });
+    } else {
+        tasks = tasks.filter(task => task.id !== taskId);
+        res.status.json({ message: 'Task deleted successfully' });
+    }
+});
+
 
 router.get ('/getTasks', function(req, res, next) {
     const taskId = parseInt(req.params.id, );
